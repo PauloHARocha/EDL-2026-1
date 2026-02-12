@@ -2,14 +2,17 @@
 #include"quadrado.h"
 
 int main(){
-
-    Quadrado q;
-    q.l = 0;
+    float lado;
 
     printf("Insira o lado do quadrado: ");
-    scanf("%f", &q.l);
-    
-    printf("Quadrado com area %.2f e perimetro %.2f\n", calculo_area(q), calculo_perimetro(q));
+    scanf("%f", &lado);
 
+    Quadrado q = cria_quadrado(lado);
+
+    printf("Quadrado de lado %.2f com area %.2f e perimetro %.2f\n", 
+        acessa_lado(q), calculo_area(q), calculo_perimetro(q));
+    
+    destruir_quadrado(q);
+    
     return 0;
 }
