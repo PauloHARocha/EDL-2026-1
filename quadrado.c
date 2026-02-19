@@ -1,7 +1,7 @@
 #include<stdlib.h>
 #include"quadrado.h"
 
-struct Quadrado{
+struct quadrado{
     float l;
 };
 
@@ -9,7 +9,7 @@ Quadrado cria_quadrado(float l){
     if(l < 0 )
         l *= -1;
     
-    Quadrado q = malloc(sizeof(struct Quadrado));
+    Quadrado q = malloc(sizeof(struct quadrado));
     if(q != NULL){
         q->l = l;
     }
