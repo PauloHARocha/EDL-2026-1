@@ -14,21 +14,40 @@ Lista criar_lista(){
     return l;
 }
 
-int inserir(Lista l, int matricula, int pos){
-    if(pos < MAX){
-        l->dados[pos] = matricula;
+int inserir_final(Lista l, int matricula){
+    if(l->qtd < MAX){
+        l->dados[l->qtd] = matricula;
         l->qtd++;
         return 0;
     }else
         return 1;
 }
 
-int acessar(Lista l, int pos, int* matricula){
-    if (pos >= MAX || pos < 0)
+int acessar_final(Lista l, int* matricula){
+    if (l->qtd == 0)
         return 1;
     else
-        *matricula = l->dados[pos];
+        *matricula = l->dados[l->qtd - 1];
         return 0;
+}
+
+int remover_final(Lista l){
+    if (l->qtd == 0)
+        return 1;
+    else
+        l->qtd--;
+    return 0;
+}
+
+int tamanho_lista(Lista l){
+    if(l == NULL)
+        return 0;
+    return l->qtd;
+}
+
+void destruir_lista(Lista l){
+    if(l != NULL)
+        free(l);
 }
 
 int main(){
@@ -39,21 +58,21 @@ int main(){
         printf("Insira a matricula aluno %d: ", i+1);
         scanf("%d", &matricula);
 
-        if(inserir(l, matricula, i)){
+        if(inserir_final(l, matricula)){
             printf("Erro, valor nao inserido\n");
         }else{
             printf("Valor %d inserido\n", matricula);
         }
-        printf("Quantidade de elementos: %d\n", l->qtd);
+        printf("Quantidade de elementos: %d\n", tamanho_lista(l));
     }
    
-    for(int i = 0; i < l->qtd; i++){
-        if(acessar(l, i, &matricula))
+    for(int i = 0; i < tamanho_lista(l); i++){
+        if(acessar_final(l, &matricula))
             printf("Erro de acesso\n");
         else
             printf("Matricula aluno %d: %d \n", i+1, matricula);    
     }
 
-
+    destruir_lista(l);
     return 0;
 }
