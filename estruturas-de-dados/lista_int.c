@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 #define MAX 5
 
 typedef struct lista {
@@ -22,15 +23,19 @@ int inserir(Lista l, int matricula, int pos){
         return 1;
 }
 
-int acessar(Lista l, int pos){
-    return l->dados[pos];
+int acessar(Lista l, int pos, int* matricula){
+    if (pos >= MAX || pos < 0)
+        return 1;
+    else
+        *matricula = l->dados[pos];
+        return 0;
 }
 
 int main(){
     Lista l = criar_lista();
     int matricula;
 
-    for(int i = 0; i < 2; i++){
+    for(int i = 0; i < MAX; i++){
         printf("Insira a matricula aluno %d: ", i+1);
         scanf("%d", &matricula);
 
@@ -43,7 +48,10 @@ int main(){
     }
    
     for(int i = 0; i < l->qtd; i++){
-        printf("Matricula aluno %d: %d \n", i+1, acessar(l, i));    
+        if(acessar(l, i, &matricula))
+            printf("Erro de acesso\n");
+        else
+            printf("Matricula aluno %d: %d \n", i+1, matricula);    
     }
 
 
