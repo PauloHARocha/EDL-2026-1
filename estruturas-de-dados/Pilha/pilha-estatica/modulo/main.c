@@ -1,22 +1,6 @@
 #include<stdio.h>
 #include"pilha.h"
 
-struct pilha {
-    int dados[MAX];
-    int topo;
-};
-
-Pilha copiar_pilha_2(Pilha p){
-
-    Pilha p_copia = criar_pilha();
-
-    for(int i = 0; i<10; i++){
-        p_copia->dados[i] = p->dados[i];
-    }
-
-    return p_copia;
-}
-
 Pilha copiar_pilha(Pilha p){
     // peek pra acessar o topo
     // push pra inserir na nova
