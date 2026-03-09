@@ -61,11 +61,15 @@ int main(){
         if(push(p, matricula)){
             printf("Erro, valor nao inserido\n");
         }else{
-            printf("Valor %d inserido\n", matricula);
+            printf("Valor inserido: %d\n", matricula);
         }
         printf("Quantidade de elementos: %d\n", tamanho_pilha(p));
     }
    
+    for(int i = 0; i < MAX; i++){
+        printf("Elemento da pilha posicao %d: %d\n", i, p->dados[i]);
+    }
+    
     while(tamanho_pilha(p)){
         if(peek(p, &matricula))
             printf("Erro de acesso\n");
