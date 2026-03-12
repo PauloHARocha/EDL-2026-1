@@ -66,6 +66,7 @@ void destruir(Fila f){
 
 int main(){
     Fila f = criar_fila();
+    f->dados[2] = 20;
     inserir(f, 10);
     inserir(f, 20);
     inserir(f, 30);
