@@ -20,7 +20,7 @@ Fila criar_fila(){
     return f;
 }
 
-int inserir(Fila f, int valor){
+int inserir(Fila f, int valor){ //enqueue ou enfileirar
     if(f->qtd < MAX && f != NULL){
         f->dados[f->final] = valor;
         f->final = (f->final + 1) % MAX;
@@ -31,7 +31,7 @@ int inserir(Fila f, int valor){
     }
 }
 
-int remover(Fila f){
+int remover(Fila f){ // dequeue ou desenfileirar
     if(f->qtd == 0 || f == NULL){
         return 1;
     }else{
@@ -41,7 +41,7 @@ int remover(Fila f){
     }
 }
 
-int acessar(Fila f, int* valor){
+int acessar(Fila f, int* valor){ // peek
     if(f->qtd == 0 || f == NULL){
         return 1;
     }else{
