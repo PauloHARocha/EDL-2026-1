@@ -8,70 +8,74 @@ typedef struct elemento{
 
 typedef struct lista{
     Elem* inicio;
-} Lista;
+    int qtd;
+}* Lista;
 
-Lista* criar_lista(){
-    Lista *li = malloc(sizeof(Lista));
+Lista criar_lista(){
+    Lista li = malloc(sizeof(struct lista));
     if(li != NULL){
         li->inicio = NULL;
+        li->qtd = 0;
     }
     return li;
 }
 
-int inserir_inicio(Lista* li, int valor){
+int inserir_inicio(Lista li, int valor){
     Elem* no = malloc(sizeof(Elem));
     if(no != NULL){
         no->valor = valor;
         no->prox = li->inicio;
         li->inicio = no;
+        li->qtd++;
         return 0;
     }
     return 1;
 }
 
 
-int inserir_final(Lista *li, int valor){
+int inserir_final(Lista li, int valor){
     if(li == NULL)
         return 1;
-
     Elem* no = malloc(sizeof(Elem));
     if(no == NULL)
         return 1;
     no->valor = valor;
     no->prox = NULL;
-    
     if(li->inicio == NULL){
         li->inicio = no;
+        li->qtd++;
         return 0;
     }
-
     Elem* aux = li->inicio;
     while(aux->prox != NULL){
         aux = aux->prox;
     }
     aux->prox = no;
+    li->qtd++;
     return 0;
     
 }
 
-int remover_inicio(Lista* li){
+int remover_inicio(Lista li){
     if(li->inicio == NULL){
         return 1;
     }
     Elem* no = li->inicio;
     li->inicio = no->prox;
+    li->qtd--;
     free(no);
     return 0;
 }
 
-int remover_final(Lista *li){
-    if(li == NULL || li->inicio == NULL)
+int remover_final(Lista li){
+    if(li == NULL || li->inicio == NULL || li->qtd == 0)
         return 1;
     Elem* aux = li->inicio;
     Elem* ant;
     if(aux->prox == NULL){
         free(aux);
         li->inicio = NULL;
+        li->qtd--;
         return 0;
     }
     while(aux->prox != NULL){
@@ -80,10 +84,11 @@ int remover_final(Lista *li){
     }
     free(aux);
     ant->prox = NULL;
+    li->qtd--;
     return 0;
 }
 
-int acessar_inicio(Lista *li, int* valor){
+int acessar_inicio(Lista li, int* valor){
     if(li == NULL){
         return 1;
     }
@@ -91,7 +96,7 @@ int acessar_inicio(Lista *li, int* valor){
     return 0;
 }
 
-void destruir(Lista *li){
+void destruir(Lista li){
     if(li != NULL){
         Elem* no = li->inicio;
         while(no != NULL){
@@ -103,7 +108,13 @@ void destruir(Lista *li){
     }
 }
 
-int tamanho_lista(Lista *li){
+int lista_quantidade(Lista li){
+    if(li == NULL)
+        return 0;
+    return li->qtd;
+}
+
+int tamanho_lista(Lista li){
     if(li == NULL)
         return 0;
 
@@ -117,7 +128,7 @@ int tamanho_lista(Lista *li){
 }
 
 int main(){
-    Lista* li = criar_lista();
+    Lista li = criar_lista();
     inserir_inicio(li, 20);
     inserir_inicio(li, 30);
     inserir_inicio(li, 40);
@@ -125,7 +136,7 @@ int main(){
     acessar_inicio(li, &valor);
     printf("O valor do inicio é: %d\n", valor);
 
-    printf("Tamanho da lista: %d\n", tamanho_lista(li));
+    printf("Tamanho da lista: %d\n", lista_quantidade(li));
 
     destruir(li);
     return 0;
