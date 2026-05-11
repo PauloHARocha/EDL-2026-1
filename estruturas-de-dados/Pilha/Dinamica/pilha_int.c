@@ -68,12 +68,40 @@ int size(Pilha p){
     return p->qtd;
 }
 
-void destruir(){
+void destruir(Pilha p){
 
+    if(p != NULL){
+        Elem * aux;
+
+    while(p->topo != NULL){
+        aux = p->topo;
+        p->topo = aux->prox;
+        free(aux);
+        Elem *aux;
+        }
+    free(p);
+    }
 }
 
-void menor_valor_pilha(){ // Usando as operacoes
+int menor_valor_pilha(Pilha p, int *menor_valor){ // Usando as operacoes
+    if (p == NULL || size(p) == 0) return 1;
+    Pilha aux = criar_pilha();
+    peek(p, menor_valor);
+    int menor_aux;
+    while (size(p) > 0){
+        peek(p, &menor_aux);
+        if(menor_aux < *menor_valor) *menor_valor = menor_aux;
+        pop(p);
+        push(aux, menor_aux);
+    }
+    while(size(aux) > 0){
+        peek(aux, &menor_aux);
+        push(p, menor_aux);
+        pop(aux);
+    }
+    destruir(aux);
 
+    return 0;
 }
 
 int main(){
